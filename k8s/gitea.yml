@@ -18,6 +18,8 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: gitea-data
+        - name: ssh
+          emptyDir: {}
       containers:
         - name: gitea
           image: docker.io/gitea/gitea
@@ -46,6 +48,8 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: data
+            - mountPath: /data/git/.ssh
+              name: ssh
           ports:
             - containerPort: 22
               name: ssh
