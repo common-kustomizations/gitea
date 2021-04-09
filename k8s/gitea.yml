@@ -1,0 +1,84 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea
+  labels:
+    app.kubernetes.io/component: gitea
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: gitea
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: gitea
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: gitea-data
+      #- name: "data"
+      #  hostPath:
+      #    path: "/data/gitea"
+      #    type: Directory
+
+      containers:
+        - name: gitea
+          image: docker.io/gitea/gitea
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: gitea
+            - configMapRef:
+                name: gitea-postgres
+            - secretRef:
+                name: gitea
+            - secretRef:
+                name: gitea-postgres
+          volumeMounts:
+            #- mountPath: "/var/lib/gitea"
+            #  name: "root"
+            - mountPath: /data
+              name: data
+          ports:
+            - containerPort: 22
+              name: ssh
+            - containerPort: 3000
+              name: http
+
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitea-data
+  labels:
+    app.kubernetes.io/component: gitea
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10G
+
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitea
+  labels:
+    app.kubernetes.io/component: gitea
+spec:
+  selector:
+    app.kubernetes.io/component: gitea
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: ssh
+      port: 22
+      targetPort: ssh
