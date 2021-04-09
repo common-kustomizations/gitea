@@ -18,12 +18,16 @@ images:
 
 configMapGenerator:
   - name: gitea
+    envs:
+      - config/gitea.env
   - name: gitea-postgres
     envs:
       - config/gitea-postgres.env
 
 secretGenerator:
   - name: gitea
+    envs:
+      - config/gitea.secret.env
   - name: gitea-postgres
     envs:
       - config/gitea-postgres.secret.env
