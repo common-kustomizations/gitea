@@ -36,5 +36,5 @@ This kustomization will create the following Kubernetes Resources
 The application can be configured through the generated ConfigMaps and Secrets as they get injected as
 environment variables.
 
-*Note: The main server backend has access to both its own and the databases ConfigMap + Secret. This can be
-used to keep the database credentials DRY.*
+*Note: The main server backend automatically configures its DB_\* environment variables based on the 
+configuration of the postgre server.*

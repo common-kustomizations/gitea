@@ -18,11 +18,6 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: gitea-data
-      #- name: "data"
-      #  hostPath:
-      #    path: "/data/gitea"
-      #    type: Directory
-
       containers:
         - name: gitea
           image: docker.io/gitea/gitea
@@ -30,15 +25,25 @@ spec:
           envFrom:
             - configMapRef:
                 name: gitea
-            - configMapRef:
-                name: gitea-postgres
             - secretRef:
                 name: gitea
-            - secretRef:
-                name: gitea-postgres
+          env:
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: gitea-postgres
+                  key: POSTGRES_DB
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: gitea-postgres
+                  key: POSTGRES_USER
+            - name: DB_PASSWD
+              valueFrom:
+                secretKeyRef:
+                  name: gitea-postgres
+                  key: POSTGRES_PASSWORD
           volumeMounts:
-            #- mountPath: "/var/lib/gitea"
-            #  name: "root"
             - mountPath: /data
               name: data
           ports:
