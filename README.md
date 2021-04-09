@@ -16,20 +16,15 @@ This kustomization will create the following Kubernetes Resources
 * A [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) named `gtitea`
   in which the whole application resides.
 * Resources for the main server:
-    * A [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-      + [Service](https://kubernetes.io/docs/concepts/services-networking/service/) both named `gitea`.
+    * A [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) + [Service](https://kubernetes.io/docs/concepts/services-networking/service/) both named `gitea`.
     * [PersistentVolumeClaim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) named `gitea`
       in which gitea persists its data like repositories and LFS files.
-    * An example [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/)
-      + [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) both named `gitea`.
+    * An example [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/) + [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) both named `gitea`.
 * Resources for the database:
-    * A [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-      + [Service](https://kubernetes.io/docs/concepts/services-networking/service/) both
+    * A [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) + [Service](https://kubernetes.io/docs/concepts/services-networking/service/) both
       named `gitea-postgres`.
-    * A [PersistentVolumeClaim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
-      named `gitea-postgres` in which the database is persisted.
-    * An example [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/)
-      + [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) both named `gitea-postgres`.
+    * A [PersistentVolumeClaim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) named `gitea-postgres` in which the database is persisted.
+    * An example [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/) + [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) both named `gitea-postgres`.
 
 ## Configuration
 
