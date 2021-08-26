@@ -12,7 +12,7 @@ resources:
 
 images:
   - name: docker.io/gitea/gitea
-    newTag: "1.14.6"
+    newTag: "1.15.0"
   - name: docker.io/postgres
     newTag: "13"
 
